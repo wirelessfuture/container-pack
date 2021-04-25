@@ -1,54 +1,87 @@
 import json
-from packer import Packer
+from loader import Loader
 from shippable import ShippableC
 from container import ContainerC
 from entities import DimensionsD
+from enums import CARGO_TYPE
 
 
-packer = Packer()
+loader = Loader()
 
-packer.add_container(
-    ContainerC("Standard 20", DimensionsD(width=235.2, height=239.5, depth=590), 28130)
-)
-packer.add_container(
+loader.add_container(
     ContainerC(
-        "Standard 40", DimensionsD(width=235.2, height=239.5, depth=1203.2), 28750
+        "Standard 20",
+        CARGO_TYPE.STANDARD,
+        DimensionsD(width=235.2, height=239.5, depth=590),
+        28130,
     )
 )
-packer.add_container(
+loader.add_container(
+    ContainerC(
+        "Standard 40",
+        CARGO_TYPE.STANDARD,
+        DimensionsD(width=235.2, height=239.5, depth=1203.2),
+        28750,
+    )
+)
+loader.add_container(
+    ContainerC(
+        "Standard 40 High Cube",
+        CARGO_TYPE.STANDARD,
+        DimensionsD(width=235, height=270, depth=1203.2),
+        28600,
+    )
+)
+loader.add_container(
     ContainerC(
         "Standard 45 High Cube",
+        CARGO_TYPE.STANDARD,
         DimensionsD(width=235.2, height=270, depth=1355.6),
         27700,
     )
 )
 
-for i in range(22):
-    packer.add_shippable(
+for i in range(11):
+    loader.add_shippable(
         ShippableC(
-            f"Euro-Pallet-{i}",
-            DimensionsD(width=80, height=100, depth=120),
+            f"Euro-Pallet-Unstackable-{i}",
+            False,
+            CARGO_TYPE.STANDARD,
+            DimensionsD(width=120, height=100, depth=80),
             80,
-            True,
         )
     )
 
-packer.pack()
+for i in range(11):
+    loader.add_shippable(
+        ShippableC(
+            f"Euro-Pallet-Stackable-{i}",
+            True,
+            CARGO_TYPE.STANDARD,
+            DimensionsD(width=120, height=100, depth=80),
+            80,
+        )
+    )
+
+loader.load()
 
 results = {"results": []}
-for c in packer.containers:
+for c in loader.containers:
     data = {}
     data["container"] = c.describe()
     data["fitted_shippables"] = [shippable.describe() for shippable in c.shippables]
     data["unfitted_shippables"] = [
-        unfitted_shippable.describe()
-        for unfitted_shippable in c.unfitted_shippables
-        if len(c.unfitted_shippables) <= 0
+        unfitted_shippable.describe() for unfitted_shippable in c.unfitted_shippables
     ]
     results["results"].append(data)
 
 
-for r in results["results"]:
-    for k, v in r["container"].items():
-        if v == "Standard 20":
-            print(json.dumps(r, indent=4))
+for res in results["results"]:
+    if len(res["unfitted_shippables"]) > 0:
+        print("DOES NOT FIT")
+        print(res["container"]["name"])
+        print("\n")
+    else:
+        print("DOES FIT")
+        print(res["container"]["name"])
+        print("\n")

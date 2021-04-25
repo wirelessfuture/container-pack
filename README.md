@@ -1,6 +1,6 @@
 # Container Pack
 ### Designed to enable estimated container size usage for various sized shipments
-Based on enzoruiz's [py3dbp](https://github.com/enzoruiz/3dbinpacking) but modified so that the "right way up" principal is maintained. 
+Based on enzoruiz's [py3dbp](https://github.com/enzoruiz/3dbinpacking) but modified so that the "right way up" principal is maintained.
 
 #### Supported Container Sizes (Based on [Hapag-Lloyd's Container List](https://www.hapag-lloyd.com/en/products/fleet/container.html))
 ##### Standard
