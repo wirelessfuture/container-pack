@@ -4,7 +4,7 @@ from constants import RotationType, Axis, DEFAULT_PRECISION
 from helpers import intersect, set_to_decimal
 
 
-class Packer:
+class Loader:
     def __init__(self) -> None:
         self.containers = []
         self.shippables = []
