@@ -3,6 +3,7 @@ from base_types import ShippableT
 from entities import DimensionsD
 from constants import RotationType, DEFAULT_PRECISION
 from helpers import set_to_decimal
+from enums import CARGO_TYPE
 
 
 class ShippableC(ShippableT):
@@ -11,11 +12,14 @@ class ShippableC(ShippableT):
     def __init__(
         self,
         name: str,
+        stackable: bool,
+        cargo_type: CARGO_TYPE,
         dimensions: DimensionsD,
         weight: [float, int],
-        stackable: bool,
     ) -> None:
         self.name = name
+        self.stackable = stackable
+        self.cargo_type = cargo_type
 
         self.dimensions = dimensions
         self.dimensions.width = set_to_decimal(dimensions.width, DEFAULT_PRECISION)
@@ -23,7 +27,6 @@ class ShippableC(ShippableT):
         self.dimensions.depth = set_to_decimal(dimensions.depth, DEFAULT_PRECISION)
         self.weight = set_to_decimal(weight, DEFAULT_PRECISION)
 
-        self.stackable = stackable
         self.rotation_type = 0
         self.position = [0, 0, 0]
 

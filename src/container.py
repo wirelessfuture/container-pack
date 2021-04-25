@@ -3,13 +3,15 @@ from base_types import ContainerT
 from constants import RotationType, DEFAULT_PRECISION
 from helpers import intersect, set_to_decimal
 from entities import DimensionsD
+from enums import CARGO_TYPE
 
 
 class ContainerC(ContainerT):
     def __init__(
-        self, name: str, inside_dimensions: DimensionsD, max_payload: int
+        self, name: str, cargo_type: CARGO_TYPE, inside_dimensions: DimensionsD, max_payload: int
     ) -> None:
         self.name = name
+        self.cargo_type = cargo_type
 
         self.inside_dimensions = inside_dimensions
         self.inside_dimensions.width = set_to_decimal(
