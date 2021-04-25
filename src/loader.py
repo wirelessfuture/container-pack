@@ -69,7 +69,7 @@ class Loader:
         distribute_shippables=False,
         number_of_decimals=DEFAULT_PRECISION,
     ) -> None:
-    """Attempts to load all shippables to all containers registered."""
+        """Attempts to load all shippables to all containers registered."""
 
         self.containers.sort(
             key=lambda container: container.get_volume(), reverse=bigger_first
