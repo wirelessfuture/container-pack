@@ -1,23 +1,25 @@
+from typing import List
+from base_types import ShippableT
 from constants import RotationType, Axis, DEFAULT_PRECISION
 from helpers import intersect, set_to_decimal
 
 
 class Packer:
-    def __init__(self):
+    def __init__(self) -> None:
         self.containers = []
         self.shippables = []
         self.unfit_shippables = []
         self.total_shippables = 0
 
-    def add_container(self, container):
+    def add_container(self, container) -> None:
         return self.containers.append(container)
 
-    def add_shippable(self, shippable):
+    def add_shippable(self, shippable) -> None:
         self.total_shippables = len(self.shippables) + 1
 
         return self.shippables.append(shippable)
 
-    def pack_to_container(self, container, shippable):
+    def pack_to_container(self, container, shippable) -> None:
         fitted = False
 
         if not container.shippables:
@@ -32,14 +34,7 @@ class Packer:
             shippables_in_container = container.shippables
 
             for ib in shippables_in_container:
-                pivot = [0, 0, 0]
-                w, h, d = ib.get_dimension()
-                if axis == Axis.WIDTH:
-                    pivot = [ib.position[0] + w, ib.position[1], ib.position[2]]
-                elif axis == Axis.HEIGHT and shippable.stackable: # If the container is stackable we can pivot the HEIGHT axis
-                    pivot = [ib.position[0], ib.position[1] + h, ib.position[2]]
-                elif axis == Axis.DEPTH:
-                    pivot = [ib.position[0], ib.position[1], ib.position[2] + d]
+                pivot = self.get_pivot(axis, ib, shippable)
 
                 if container.put_shippable(shippable, pivot):
                     fitted = True
@@ -50,12 +45,26 @@ class Packer:
         if not fitted:
             container.unfitted_shippables.append(shippable)
 
+    def get_pivot(self, axis: Axis, ib, shippable: ShippableT) -> List[int]:
+        pivot = [0, 0, 0]
+        w, h, d = ib.get_dimension()
+        if axis == Axis.WIDTH:
+            pivot = [ib.position[0] + w, ib.position[1], ib.position[2]]
+        elif axis == Axis.HEIGHT and shippable.stackable:
+            pivot = [ib.position[0], ib.position[1] + h, ib.position[2]]
+        elif axis == Axis.HEIGHT and not shippable.stackable:
+            pivot = [ib.position[0], ib.position[1], ib.position[2]]
+        elif axis == Axis.DEPTH:
+            pivot = [ib.position[0], ib.position[1], ib.position[2] + d]
+
+        return pivot
+
     def pack(
         self,
         bigger_first=False,
         distribute_shippables=False,
         number_of_decimals=DEFAULT_PRECISION,
-    ):
+    ) -> None:
 
         self.containers.sort(
             key=lambda container: container.get_volume(), reverse=bigger_first
