@@ -45,7 +45,7 @@ class Packer:
         if not fitted:
             container.unfitted_shippables.append(shippable)
 
-    def get_pivot(self, axis: Axis, ib, shippable: ShippableT) -> List[int]:
+    def get_pivot(self, axis: Axis, ib: ShippableT, shippable: ShippableT) -> List[int]:
         pivot = [0, 0, 0]
         w, h, d = ib.get_dimension()
         if axis == Axis.WIDTH:
