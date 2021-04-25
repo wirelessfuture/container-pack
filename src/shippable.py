@@ -37,6 +37,7 @@ class ShippableC(ShippableT):
             position=[float(x) for x in self.position],
             rotation_type=self.rotation_type,
             volume=float(self.get_volume()),
+            stackable=self.stackable
         )
 
     def get_volume(self) -> [float, int]:
