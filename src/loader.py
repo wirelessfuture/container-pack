@@ -12,14 +12,17 @@ class Loader:
         self.total_shippables = 0
 
     def add_container(self, container) -> None:
+        """Registers a new container in the loader."""
         return self.containers.append(container)
 
     def add_shippable(self, shippable) -> None:
+        """Registers a new shippable in the loader."""
         self.total_shippables = len(self.shippables) + 1
 
         return self.shippables.append(shippable)
 
     def load_to_container(self, container, shippable) -> None:
+        """Attempts to load all shippables to the container."""
         fitted = False
 
         if not container.shippables:
@@ -46,6 +49,7 @@ class Loader:
             container.unfitted_shippables.append(shippable)
 
     def get_pivot(self, axis: Axis, ib: ShippableT, shippable: ShippableT) -> List[int]:
+        """Returns the next pivot."""
         pivot = [0, 0, 0]
         w, h, d = ib.get_dimension()
         if axis == Axis.WIDTH:
@@ -65,6 +69,7 @@ class Loader:
         distribute_shippables=False,
         number_of_decimals=DEFAULT_PRECISION,
     ) -> None:
+    """Attempts to load all shippables to all containers registered."""
 
         self.containers.sort(
             key=lambda container: container.get_volume(), reverse=bigger_first

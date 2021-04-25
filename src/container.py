@@ -30,6 +30,7 @@ class ContainerC(ContainerT):
         self.unfitted_shippables = []
 
     def describe(self) -> Dict:
+        """Returns a dict with container characteristics."""
         return dict(
             name=self.name,
             width=float(self.inside_dimensions.width),

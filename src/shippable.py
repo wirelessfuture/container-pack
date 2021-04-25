@@ -31,6 +31,7 @@ class ShippableC(ShippableT):
         self.position = [0, 0, 0]
 
     def describe(self) -> Dict:
+        """Returns a dict with shippable characteristics."""
         return dict(
             name=self.name,
             width=float(self.dimensions.width),
