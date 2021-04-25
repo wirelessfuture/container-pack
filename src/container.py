@@ -22,7 +22,6 @@ class ContainerC(ContainerT):
             inside_dimensions.depth, DEFAULT_PRECISION
         )
 
-        self.max_payload = max_payload
         self.max_payload = set_to_decimal(max_payload, DEFAULT_PRECISION)
 
         self.shippables = []
