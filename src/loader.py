@@ -19,7 +19,7 @@ class Loader:
 
         return self.shippables.append(shippable)
 
-    def pack_to_container(self, container, shippable) -> None:
+    def load_to_container(self, container, shippable) -> None:
         fitted = False
 
         if not container.shippables:
@@ -59,7 +59,7 @@ class Loader:
 
         return pivot
 
-    def pack(
+    def load(
         self,
         bigger_first=False,
         distribute_shippables=False,
@@ -75,7 +75,7 @@ class Loader:
 
         for container in self.containers:
             for shippable in self.shippables:
-                self.pack_to_container(container, shippable)
+                self.load_to_container(container, shippable)
 
             if distribute_shippables:
                 for shippable in container.shippables:
