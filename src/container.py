@@ -8,7 +8,11 @@ from enums import CARGO_TYPE
 
 class ContainerC(ContainerT):
     def __init__(
-        self, name: str, cargo_type: CARGO_TYPE, inside_dimensions: DimensionsD, max_payload: int
+        self,
+        name: str,
+        cargo_type: CARGO_TYPE,
+        inside_dimensions: DimensionsD,
+        max_payload: int,
     ) -> None:
         self.name = name
         self.cargo_type = cargo_type
