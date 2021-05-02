@@ -1,6 +1,6 @@
 from typing import List, Dict
 from base_types import ContainerT
-from constants import RotationType, DEFAULT_PRECISION
+from constants import RotationTypeAny, RotationTypeRightWayUp, DEFAULT_PRECISION
 from helpers import intersect, set_to_decimal
 from entities import DimensionsD
 from enums import CARGO_TYPE
@@ -67,7 +67,12 @@ class ContainerC(ContainerT):
         valid_shippable_position = shippable.position
         shippable.position = pivot
 
-        for i in range(0, len(RotationType.ALL)):
+        if shippable.right_way_up:
+            rotationType = RotationTypeRightWayUp
+        elif not shippable.right_way_up:
+            rotationType = RotationTypeAny
+
+        for i in range(0, len(rotationType.ALL)):
             shippable.rotation_type = i
             dimension = shippable.get_dimension()
             if (

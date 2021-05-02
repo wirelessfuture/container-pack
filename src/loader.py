@@ -1,6 +1,6 @@
 from typing import List
 from base_types import ShippableT
-from constants import RotationType, Axis, DEFAULT_PRECISION
+from constants import Axis, DEFAULT_PRECISION
 from helpers import intersect, set_to_decimal
 
 

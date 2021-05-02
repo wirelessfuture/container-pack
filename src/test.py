@@ -49,6 +49,7 @@ for i in range(11):
             CARGO_TYPE.STANDARD,
             DimensionsD(width=120, height=100, depth=80),
             80,
+            True,
         )
     )
 
@@ -60,6 +61,7 @@ for i in range(11):
             CARGO_TYPE.STANDARD,
             DimensionsD(width=120, height=100, depth=80),
             80,
+            True,
         )
     )
 
