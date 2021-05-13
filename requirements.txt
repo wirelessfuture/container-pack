@@ -1,10 +1,17 @@
 appdirs==1.4.4
+attrs==20.3.0
 cfgv==3.2.0
 distlib==0.3.1
 filelock==3.0.12
 identify==2.2.4
+iniconfig==1.1.1
 nodeenv==1.6.0
+packaging==20.9
+pluggy==0.13.1
 pre-commit==2.12.1
+py==1.10.0
+pyparsing==2.4.7
+pytest==6.2.3
 PyYAML==5.4.1
 six==1.15.0
 toml==0.10.2
